@@ -634,7 +634,6 @@ JNIEXPORT void JNICALL Java_com_android_camera_MosaicRenderer_preprocess(
 
     gSurfTexRenderer[LR].DrawTexture(g_dAffinetransIdentGL);
     gSurfTexRenderer[HR].DrawTexture(g_dAffinetransIdentGL);
-    glFlush();
 }
 
 #ifndef now_ms
@@ -660,7 +659,6 @@ JNIEXPORT void JNICALL Java_com_android_camera_MosaicRenderer_transferGPUtoCPU(
     gYVURenderer[LR].DrawTexture();
     gYVURenderer[HR].DrawTexture();
 
-    glFlush();
     sem_wait(&gPreviewImage_semaphore);
     // Bind to the input LR FBO and read the Low-Res data from there...
     glBindFramebuffer(GL_FRAMEBUFFER, gBufferInputYVU[LR].GetFrameBufferName());
@@ -688,7 +686,6 @@ JNIEXPORT void JNICALL Java_com_android_camera_MosaicRenderer_transferGPUtoCPU(
 
     checkGlError("glReadPixels HR");
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
     sem_post(&gPreviewImage_semaphore);
 }
 
